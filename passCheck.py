@@ -2,15 +2,19 @@ import hashlib
 import requests
 import sys
 
+
+print('Type in three uncommon words to use in your password. These words can',
+        'include your favorite band, snack, etc! Please enter words with a common inbetween')
+
 # get the user password from the command line
-usrInput = input("Please type in Password:")
-print(usrInput)
+usrInput = input("Please type in Password: ")
+#print(usrInput)
 
 # hash the password with sha1 and print it out
 encryptPass = hashlib.sha1()
 encryptPass.update(usrInput.encode("utf8"))
 encryptPass = encryptPass.hexdigest().upper()
-print(encryptPass)
+#print(encryptPass)
 
 # request the information about all cracked hashes with the first
 # five chars of the encoded password
@@ -32,10 +36,7 @@ for line in allLines:
     lineLastTen = crackedPass[-10:]
     #print(lineLastTen)
     if(lastTenCharEncrypt == lineLastTen):
-        print(crackedPass)
-        print(count)
-        s = 'Your password has been cracked ' + count + 'times!'
-        print(s)
+        print('Your password has been cracked!')
         break
         
     

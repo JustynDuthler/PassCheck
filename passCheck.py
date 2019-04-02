@@ -1,18 +1,32 @@
 import hashlib
 import requests
+import random, string
 import sys
 
 
 print('Type in three uncommon words to use in your password. These words can',
-        'include your favorite band, snack, etc! Please enter words with a common inbetween')
+        'include your favorite band, snack, etc! Please enter words with a space inbetween')
 
 # get the user password from the command line
-usrInput = input("Please type in Password: ")
-#print(usrInput)
+usrInput = input()
+print(usrInput)
+firstWord, secondWord, thirdWord = usrInput.split()
+
+#place a random character in the middle of the second word
+random = random.choice(string.punctuation)
+#print(random)
+middleOfString = int(len(secondWord) / 2)
+#print(middleOfString)
+secondWord = secondWord[:middleOfString] + random + secondWord[middleOfString:]
+#print(secondWord)
+
+# combine words to create a new password
+newPassword = firstWord + secondWord + thirdWord
+print('Your new password is: ' + newPassword)
 
 # hash the password with sha1 and print it out
 encryptPass = hashlib.sha1()
-encryptPass.update(usrInput.encode("utf8"))
+encryptPass.update(newPassword.encode("utf8"))
 encryptPass = encryptPass.hexdigest().upper()
 #print(encryptPass)
 
@@ -38,9 +52,10 @@ for line in allLines:
     if(lastTenCharEncrypt == lineLastTen):
         print('Your password has been cracked!')
         break
-        
-    
-    
+    else:
+        print('Your password has not been cracked! Good choice!')         
+        break
+ 
 
 
 
